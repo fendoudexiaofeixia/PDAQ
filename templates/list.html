@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDAQ管理系统</title>
+</head>
+<body>
+    <div>
+        顶部分类：
+        {% for cate in navs %}
+            <a href="{% url 'category_list' cate.id %}" title="">{{ cate.name }}</a>
+        {% endfor %}
+        {% for cus in customs %}
+            <a href="{% url 'custom_list' cus.id %}" title="">{{ cus.name }}</a>
+        {% endfor %}
+
+    </div>
+    <hr/>
+    <div>
+        底部分类：
+        {% for cate in categories %}
+            <a href="{% url 'category_list' cate.id %}" title="">{{ cate.name }}</a>
+        {% endfor %}
+    </div>
+    <ul>
+        {% for pdaq in p_list %}
+            <li>
+            <a href="{% url 'serial_list' pdaq.serial_number %}">{{ pdaq.ip }}</a>
+            <div>
+                <span>客户：{{ pdaq.custom.name }}</span>
+                <span>分类：{{ pdaq.category.name }}</span>
+            </div>
+            <p>{{ pdaq.desc }}</p>
+            </li>
+        {% endfor %}
+
+    </ul>
+    {% if custom %}
+        客户页：{{ custom.name }}
+    {% endif %}
+    {% if category %}
+        分类页：{{ category.name }}
+    {% endif %}
+</body>
+</html>
