@@ -52,7 +52,7 @@ class PdaqAdmin(admin.ModelAdmin):
         ('基础信息', {
             'description': '基础信息描述',
             'fields': (
-                'ip', 'custom_ip', 'category', 'ICCID', 'serial_number', 'Set_meal', 'custom'
+                'ip', 'custom_ip', 'category', 'ICCID', 'serial_number', 'Set_meal', 'custom','status'
             ),
 
         }),
@@ -80,7 +80,11 @@ class PdaqAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(PdaqAdmin, self).get_queryset(request)
-        return qs.filter(owner=request.user)
+        # return qs.filter(owner=request.user)
+        if request.user.is_superuser:
+            return qs
+        else:
+            return qs.filter(owner=request.user)
 
     def save_model(self, request, obj, form, change):
         obj.owner = request.user
@@ -107,6 +111,7 @@ class LogEntryAdmin(admin.ModelAdmin):
     list_display = ['object_id', 'action_flag', 'user', 'change_message']
 
 
-# admin.site.site_title = 'PDAQ后台管理'
+admin.site.site_title = 'PDAQ后台管理'
 admin.site.index_title = '信息管理'
 admin.site.site_header = 'PDAQ信息管理系统'
+

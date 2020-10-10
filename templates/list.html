@@ -3,43 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <title>PDAQ管理系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
-    <div>
-        顶部分类：
-        {% for cate in navs %}
-            <a href="{% url 'category_list' cate.id %}" title="">{{ cate.name }}</a>
-        {% endfor %}
-        {% for cus in customs %}
-            <a href="{% url 'custom_list' cus.id %}" title="">{{ cus.name }}</a>
-        {% endfor %}
-
+<div class="container head">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/" title="首页">首页</a>
+            <div class="collapsed navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    {% for cate in navs %}
+                        <li class="nav-link">
+                        <a class="nav-link" href="{% url 'category_list' cate.id %}" title="{{ cate.name }}">{{ cate.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <form class="form-inline my-2 my-lg-0" method="get">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">搜索</button>
+                </form>
+            </div>
+        </nav>
+    <div class="container main">
+        <div class="jumbotron">
+            <h1>PDAQ信息管理系统</h1>
+                <h2>分类信息：
+                    {% for cate in navs %}
+                        <a href="{% url 'category_list' cate.id %}" title="">{{ cate.name }}</a>
+                    {% endfor %}
+                    {% for cus in customs %}
+                        <a href="{% url 'custom_list' cus.id %}" title="">{{ cus.name }}</a>
+                    {% endfor %}
+                </h2>
+        </div>
     </div>
     <hr/>
-    <div>
-        底部分类：
-        {% for cate in categories %}
-            <a href="{% url 'category_list' cate.id %}" title="">{{ cate.name }}</a>
-        {% endfor %}
+    <div class="container">
+        <div class="jumbtron">
+            <div class="row">
+                <div class="clo-9 post-list">
+                    <h3>
+                        产品列表：
+                        {% for cate in categories %}
+                            <a href="{% url 'category_list' cate.id %}" title="">{{ cate.name }}</a>
+                        {% endfor %}
+                    </h3>
+                </div>
+            </div>
+        </div>
     </div>
     <ul>
-        {% for pdaq in p_list %}
-            <li>
-            <a href="{% url 'serial_list' pdaq.serial_number %}">{{ pdaq.ip }}</a>
-            <div>
-                <span>客户：{{ pdaq.custom.name }}</span>
-                <span>分类：{{ pdaq.category.name }}</span>
+    <h3>
+        <div class="container">
+            <div class="jumbtron">
+                <div class="row">
+                    <div class="clo-sm-4">
+                        {% for pdaq in p_list %}
+                            <li>
+                                <a href="{% url 'serial_list' pdaq.serial_number %}">{{ pdaq.ip }}</a>
+                                <div>
+                                    <span>客户：{{ pdaq.custom.name }}</span><br>
+                                    <span>分类：{{ pdaq.category.name }}</span>
+                                </div>
+                                <p>摘要：{{ pdaq.desc }}</p>
+                            </li>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-            <p>{{ pdaq.desc }}</p>
-            </li>
-        {% endfor %}
-
+        </div>
+    </h3>
     </ul>
-    {% if custom %}
-        客户页：{{ custom.name }}
-    {% endif %}
-    {% if category %}
-        分类页：{{ category.name }}
-    {% endif %}
+    <h3>
+        <div class="container">
+            <div class="jumbtron">
+                <div class="row">
+                    <div class="clo-sm-4">
+                        {% if custom %}
+                            客户页：{{ custom.name }}
+                        {% endif %}
+                        {% if category %}
+                            分类页：{{ category.name }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h3>
+    {% if page_obj %}
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" title="上一页">上一页</a>
+            {% endif %}
+            Page{{ page_obj.number }} of{{ paginator.num_pages }} .
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" title="下一页">下一页</a>
+            {% endif %}
+        {% endif %}
+</div>
 </body>
 </html>

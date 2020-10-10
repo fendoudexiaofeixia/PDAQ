@@ -7,14 +7,19 @@
 <body>
     {% if pdaq %}
     <h1>{{ pdaq.ip }}</h1>
-        <div>
-        <span>分类：{{ pdaq.category.name }}</span>
-        <span>作者：{{ pdaq.custom.name }}</span>
+        <div class="cotainer">
+            <h2>
+                <span>分类：{{ pdaq.category.name }}</span>
+                <span>客户：{{ pdaq.custom.name }}</span>
+            </h2>
         </div>
         <hr/>
-        <p>
-        {{ pdaq.desc }}
-        </p>
+            <p>
+            <h3>
+                设备信息摘要：{{ pdaq.desc }}<br/>
+                ICCID:{{ pdaq.ICCID }}
+            </h3>
+            </p>
     {% endif %}
 </body>
 </html>
