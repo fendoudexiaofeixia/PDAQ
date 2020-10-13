@@ -39,7 +39,9 @@ class CustomAdmin(admin.ModelAdmin):
 @admin.register(Pdaq)
 class PdaqAdmin(admin.ModelAdmin):
     form = PdaqAdminForm
-    list_display = ['ip', 'custom_ip', 'ICCID', 'Set_meal', 'USB', 'comm', 'GPS', 'serial_number', 'create_time',
+    list_display = ['ip', 'custom_ip', 'MODEL', 'ICCID', 'Set_meal', 'USB', 'comm', 'GPS', 'SD', 'INTERNET',
+                    'serial_number',
+                    'create_time',
                     'category', 'custom', 'owner', 'status']
     list_filter = ['category', 'custom']
     list_display_links = []
@@ -52,7 +54,7 @@ class PdaqAdmin(admin.ModelAdmin):
         ('基础信息', {
             'description': '基础信息描述',
             'fields': (
-                'ip', 'custom_ip', 'category', 'ICCID', 'serial_number', 'Set_meal', 'custom','status'
+                'ip', 'custom_ip', 'MODEL', 'category', 'ICCID', 'serial_number', 'Set_meal', 'custom', 'status'
             ),
 
         }),
@@ -62,7 +64,7 @@ class PdaqAdmin(admin.ModelAdmin):
         }),
         ('额外信息', {
             'classes': ('collapse',),
-            'fields': ('USB', 'comm', 'GPS',)
+            'fields': ('USB', 'comm', 'GPS', 'SD', 'INTERNET')
         }),
     )
 
@@ -114,4 +116,3 @@ class LogEntryAdmin(admin.ModelAdmin):
 admin.site.site_title = 'PDAQ后台管理'
 admin.site.index_title = '信息管理'
 admin.site.site_header = 'PDAQ信息管理系统'
-

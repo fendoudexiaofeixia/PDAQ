@@ -29,7 +29,7 @@
         <property name="enable_load_extension" value="true" />
       </driver-properties>
     </data-source>
-    <data-source source="LOCAL" name="PDAQ" uuid="bb932c82-9788-466a-8576-17e8f0301a6e">
+    <data-source source="LOCAL" name="PDAQ@192.168.196.220" uuid="3eec9297-135e-4762-8be2-add7a35ccba2">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
