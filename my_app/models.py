@@ -13,7 +13,7 @@ class Category(models.Model):
         (STAUTS_NORMAL, '正常'),
         (STATUS_DIFF, '删除'),
     }
-    name = models.CharField(max_length=128, verbose_name='名称')
+    name = models.CharField(max_length=128, unique=True, verbose_name='名称')
     status = models.PositiveIntegerField(default=STAUTS_NORMAL, choices=STATUS_ITEMS, verbose_name='状态')
     is_nav = models.BooleanField(default=False, verbose_name='是否为导航')
     owner = models.ForeignKey(User, verbose_name='创建者', on_delete=models.PROTECT, db_constraint=False, null=True)
@@ -51,10 +51,11 @@ class Custom(models.Model):
         (STATUS_NORMAL, '正常'),
         (STATUS_DIFF, '完结'),
     }
-    name = models.CharField(max_length=128, verbose_name='客户')
+    name = models.CharField(max_length=128, unique=True, verbose_name='客户')
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name='客户状态')
     create_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
-    owner = models.ForeignKey(User, verbose_name='创建者', on_delete=models.PROTECT, db_constraint=False, null=True)
+    owner = models.ForeignKey(User, verbose_name='创建者', on_delete=models.PROTECT, db_constraint=False, null=True,
+                              default=1)
 
     class Meta:
         verbose_name_plural = verbose_name = '客户'
@@ -84,7 +85,7 @@ class Pdaq(models.Model):
         (STATUS_DEMAGE, '损坏'),
     }
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name='设备状态')
-    ip = models.CharField(max_length=50, primary_key=True, verbose_name='IP地址')
+    ip = models.CharField(max_length=50, primary_key=True, unique=True, verbose_name='IP地址')
     custom_ip = models.CharField(max_length=50, verbose_name='客户IP', blank=True, null=True)
     desc = models.CharField(max_length=1024, blank=True, verbose_name='摘要')
     ICCID = models.CharField(max_length=128, verbose_name='ICCID')
@@ -100,7 +101,7 @@ class Pdaq(models.Model):
     category = models.ForeignKey(Category, verbose_name='分类', on_delete=models.PROTECT, db_constraint=False)
     custom = models.ForeignKey(Custom, verbose_name='客户', on_delete=models.PROTECT, db_constraint=False)
     owner = models.ForeignKey(User, on_delete=models.PROTECT, verbose_name='创建者', db_constraint=False, null=False,
-                              blank=False)
+                              blank=False, default=1)
 
     class Meta:
         verbose_name_plural = verbose_name = 'pdaq'

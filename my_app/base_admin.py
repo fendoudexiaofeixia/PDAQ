@@ -1,7 +1,8 @@
 from django.contrib import admin
+import xadmin
 
 
-class BaseOwnerAdmin(admin.ModelAdmin):
+class BaseOwnerAdmin(object):
     exclude = ('owner',)
 
     def get_queryset(self, request):
@@ -9,5 +10,11 @@ class BaseOwnerAdmin(admin.ModelAdmin):
         return qs.filter(owner=request.user)
 
     def save_model(self, request, obj, form, change):
+        # qs = super(BaseOwnerAdmin, self).save_model(request)
+        # if obj.name == qs.filter(name=request.name):
+        #     obj.owner = request.user
+        #     return '重复数据'
+        # else:
+        #     return super(BaseOwnerAdmin, self).save_model(request, obj, form, change)
         obj.owner = request.user
         return super(BaseOwnerAdmin, self).save_model(request, obj, form, change)

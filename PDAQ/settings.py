@@ -31,7 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'simpleui',
+    'xadmin',
+    'crispy_forms',
+    # 'simpleui',
     'my_app.apps.MyAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',

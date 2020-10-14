@@ -2,42 +2,37 @@ from django.contrib import admin
 from django.contrib.admin.models import LogEntry
 from django.utils.html import format_html
 from django.urls import reverse
+from xadmin.filters import RelatedFieldListFilter, manager
 
 from my_app.adminforms import PdaqAdminForm
 from my_app.base_admin import BaseOwnerAdmin
 from .models import Category, Pdaq, Custom
+import xadmin
 
 
-class PdaqInline(admin.TabularInline):
+class PdaqInline(BaseOwnerAdmin):
     fields = ('ip', 'desc')
     extra = 0
     model = Pdaq
 
 
 # Register your models here.
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+@xadmin.sites.register(Category)
+class CategoryAdmin(BaseOwnerAdmin):
     list_display = ['name', 'status', 'is_nav', 'owner', 'create_time']
     fields = ('name', 'status', 'is_nav', 'owner')
     inlines = [PdaqInline, ]
 
-    def save_model(self, request, obj, form, change):
-        obj.owner = request.user
-        return super(CategoryAdmin, self).save_model(request, obj, form, change)
 
-
-@admin.register(Custom)
-class CustomAdmin(admin.ModelAdmin):
+@xadmin.sites.register(Custom)
+class CustomAdmin(BaseOwnerAdmin):
     list_display = ['name', 'owner', 'create_time']
     fields = ['name', 'owner']
 
-    def save_model(self, request, obj, form, change):
-        obj.owner = request.user
-        return super(CustomAdmin, self).save_model(request, obj, form, change)
 
-
-@admin.register(Pdaq)
-class PdaqAdmin(admin.ModelAdmin):
+@xadmin.sites.register(Pdaq)
+class PdaqAdmin(BaseOwnerAdmin):
+    list_per_page = 10
     form = PdaqAdminForm
     list_display = ['ip', 'custom_ip', 'MODEL', 'ICCID', 'Set_meal', 'USB', 'comm', 'GPS', 'SD', 'INTERNET',
                     'serial_number',
@@ -47,7 +42,7 @@ class PdaqAdmin(admin.ModelAdmin):
     list_display_links = []
     actions_on_top = True
     search_fields = [
-        'category', 'custom'
+        'ip',
     ]
     exclude = ('owner',)
     fieldsets = (
@@ -68,10 +63,6 @@ class PdaqAdmin(admin.ModelAdmin):
         }),
     )
 
-    def save_model(self, request, obj, form, change):
-        obj.owner = request.user
-        return super(PdaqAdmin, self).save_model(request, obj, form, change)
-
     def operator(self, obj):
         return format_html(
             '<a href="{}"><a/>',
@@ -80,39 +71,38 @@ class PdaqAdmin(admin.ModelAdmin):
 
     operator.short_description = '操作'
 
-    def get_queryset(self, request):
-        qs = super(PdaqAdmin, self).get_queryset(request)
-        # return qs.filter(owner=request.user)
-        if request.user.is_superuser:
-            return qs
-        else:
-            return qs.filter(owner=request.user)
-
-    def save_model(self, request, obj, form, change):
-        obj.owner = request.user
-        return super(PdaqAdmin, self).save_model(request, obj, form, change)
+    # def get_queryset(self, request):
+    #     qs = super(PdaqAdmin, self).get_queryset(request)
+    # return qs.filter(owner=request.user)
+    # return qs
+    # if request.user.is_superuser:
+    #     return qs
+    # else:
+    #     return qs.filter(owner=request.user)
 
 
-class CategoryOwnerFilter(admin.SimpleListFilter):
+class CategoryOwnerFilter(RelatedFieldListFilter):
     """自定义过滤器，只展示当前用户分类"""
-    title = '分类过滤器'
-    parameter_name = 'owner_category'
 
-    def lookups(self, request, model_admin):
-        return Category.objects.filter(owner=request.user).values.list('id', 'name')
+    @classmethod
+    def test(cls, field, request, params, model, admin_view, field_path):
+        return field.name == 'category'
 
-    def queryset(self, request, queryset):
-        category_id = self.value()
-        if category_id:
-            return queryset.filter(category_id=self.value())
-        return queryset
+    def __init__(self, field, request, params, model, model_admin, field_path):
+        super().__init__(field, request, params, model, model_admin, field_path)
+        # 重新获取lookup_choices，根据owner过滤
+        self.lookup_choices = Category.objects.filter(owner=request.user).values_list('id', 'name')
+        # print('*********************************', Category.objects.filter().values_list('id', 'name'))
 
 
-@admin.register(LogEntry)
-class LogEntryAdmin(admin.ModelAdmin):
+manager.register(CategoryOwnerFilter, take_priority=True)
+
+
+@xadmin.sites.register(LogEntry)
+class LogEntryAdmin(BaseOwnerAdmin):
     list_display = ['object_id', 'action_flag', 'user', 'change_message']
 
 
-admin.site.site_title = 'PDAQ后台管理'
-admin.site.index_title = '信息管理'
-admin.site.site_header = 'PDAQ信息管理系统'
+xadmin.sites.site_title = 'PDAQ后台管理'
+xadmin.sites.index_title = '信息管理'
+xadmin.sites.site_header = 'PDAQ信息管理系统'
