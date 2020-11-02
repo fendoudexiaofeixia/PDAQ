@@ -13,7 +13,7 @@ class Category(models.Model):
         (STAUTS_NORMAL, '正常'),
         (STATUS_DIFF, '删除'),
     }
-    name = models.CharField(max_length=128, unique=True, verbose_name='名称')
+    name = models.CharField(max_length=128, unique=True, db_index=True, verbose_name='名称')
     status = models.PositiveIntegerField(default=STAUTS_NORMAL, choices=STATUS_ITEMS, verbose_name='状态')
     is_nav = models.BooleanField(default=False, verbose_name='是否为导航')
     owner = models.ForeignKey(User, verbose_name='创建者', on_delete=models.PROTECT, db_constraint=False, null=True)
@@ -85,7 +85,7 @@ class Pdaq(models.Model):
         (STATUS_DEMAGE, '损坏'),
     }
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_ITEMS, verbose_name='设备状态')
-    ip = models.CharField(max_length=50, primary_key=True, unique=True, verbose_name='IP地址')
+    ip = models.CharField(max_length=50, primary_key=True, unique=True, db_index=True, verbose_name='IP地址')
     custom_ip = models.CharField(max_length=50, verbose_name='客户IP', blank=True, null=True)
     desc = models.CharField(max_length=1024, blank=True, verbose_name='摘要')
     ICCID = models.CharField(max_length=128, verbose_name='ICCID')
@@ -133,3 +133,11 @@ class Pdaq(models.Model):
         queryset = cls.objects.filter(status=cls.STATUS_NORMAL)
         # print(queryset)
         return queryset
+
+
+# class Article(models.Model):
+#     title = models.CharField(u'标题', max_length=256)
+#     content = models.TextField(u'内容')
+#     ph = models.ImageField(u'图片', upload_to='uploadImages')
+#     pub_date = models.DateTimeField(u'发表时间', auto_now_add=True, editable=True)
+#     update_time = models.DateTimeField(u'更新时间', auto_now=True, null=True)

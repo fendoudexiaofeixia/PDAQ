@@ -19,8 +19,8 @@ from django.urls import path, re_path
 from my_app.views import pdaq_list, pdaq_detail
 
 urlpatterns = [
-    path('admin/', xadmin.site.urls),
-    re_path(r'^$', pdaq_list,name='pdaq_list'),
+    path('', xadmin.site.urls),
+    # re_path(r'^$', pdaq_list, name='pdaq_list'),
     re_path(r'^category/(?P<category_id>\d+)/$', pdaq_list, name='category_list'),
     re_path(r'^custom/(?P<custom_id>\d+)/$', pdaq_list, name='custom_list'),
     re_path(r'^pdaq/(?P<serial_number>\d+).html$', pdaq_detail, name='serial_list'),
