@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f900c1ea-5a4b-4b79-a511-3a4b841e348f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/my_app/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PDAQ/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/PDAQ/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PDAQ/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/PDAQ/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_app/adminforms.py" beforeDir="false" afterPath="$PROJECT_DIR$/my_app/adminforms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_app/adminx.py" beforeDir="false" afterPath="$PROJECT_DIR$/my_app/adminx.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/my_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/my_app/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -73,8 +63,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ELECT/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
+            <state relative-caret-position="345">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
             </state>
           </provider>
         </entry>
@@ -260,7 +250,7 @@
       <workItem from="1603504584576" duration="578000" />
       <workItem from="1603505600670" duration="46000" />
       <workItem from="1603508417212" duration="1974000" />
-      <workItem from="1604283768701" duration="1900000" />
+      <workItem from="1604283768701" duration="2184000" />
     </task>
     <task id="LOCAL-00001" summary="系统初步完成   需开始编写前端页面">
       <created>1601020221904</created>
@@ -290,11 +280,18 @@
       <option name="project" value="LOCAL" />
       <updated>1602644728132</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="最终上线版本，后续增加电气试验部分">
+      <created>1604298434053</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1604298434053</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="174176000" />
+    <option name="totallyTimeSpent" value="174460000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -307,7 +304,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49933422" visible="true" weight="0.13006397" />
       <window_info id="Structure" order="1" sideWeight="0.5006658" side_tool="true" weight="0.18176973" />
@@ -342,7 +338,8 @@
     <MESSAGE value="系统初步完成   需开始编写前端页面" />
     <MESSAGE value="v1.2&#10;修改为MYSQL数据库，优化后端管理页面" />
     <MESSAGE value="初版完成，后续修改原生admin为xadmin" />
-    <option name="LAST_COMMIT_MESSAGE" value="初版完成，后续修改原生admin为xadmin" />
+    <MESSAGE value="最终上线版本，后续增加电气试验部分" />
+    <option name="LAST_COMMIT_MESSAGE" value="最终上线版本，后续增加电气试验部分" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/django/contrib/auth/models.py">
@@ -656,8 +653,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ELECT/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
+        <state relative-caret-position="345">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>
